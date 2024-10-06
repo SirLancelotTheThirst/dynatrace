@@ -21,8 +21,7 @@ def monitor_ram(connection):
 
     data = (datetime.now(), total_memory/ (1024 ** 3), available_memory/ (1024 ** 3), used_memory/ (1024 ** 3), memory_percentage)
     save_to_database(connection, data)
-    connection.close()
-
+    
 def connect():
     # Create the connection string
     connection_string = os.getenv('dynatrace_dsn')
@@ -60,6 +59,7 @@ try:
 except KeyboardInterrupt:
         monitor_ram(conn)
         print("Stopped ")
+        conn.close()
 
 
 
